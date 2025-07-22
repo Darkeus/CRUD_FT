@@ -136,7 +136,7 @@ function CampainForm({ emeraldFunds, subtractFunds, refresh, data=null, setEditi
                     id="name"
                     name="name"
                     value={formData.name}
-                    onChange={handleChange}
+                    onChange={handleChange}                   
                     required
                 />
             </div>

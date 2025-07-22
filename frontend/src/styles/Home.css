@@ -1,9 +1,9 @@
 .campain-form-wrapper {
     overflow: hidden;
     transition: height 0.3s ease-in-out;
-    height: auto; 
+    height: auto;
 }
 
 .campain-form-wrapper:not(.expanded) {
-    height: 0; 
+    height: 0;
 }

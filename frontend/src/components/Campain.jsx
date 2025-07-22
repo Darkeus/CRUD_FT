@@ -19,7 +19,7 @@ function Campain({ data, setCampains, campains, setEditingCampain }) {
         setEditingCampain(data.id);
     };
     return (
-        <div className="campain-container">
+        <div className="campain-container" >
             <h2>{data.name}</h2>
             <p><strong>Keywords:</strong> {data.keywords}</p>
             <p><strong>Bid Amount:</strong> {data.bidAmount}</p>
@@ -30,6 +30,7 @@ function Campain({ data, setCampains, campains, setEditingCampain }) {
             <div style={{ display: 'flex', justifyContent: 'space-around' }}>
             <FontAwesomeIcon icon={faEdit} className="edit-icon" onClick={handleEditClick} /> 
             <FontAwesomeIcon icon={faTrash} className="delete-icon" onClick={() => deleteCampain(data.id)} />
+            <div className="status-indicator" style={{ backgroundColor: data.status ? '#28a745' : '#dc3545' }}></div>
 
             </div>
             
