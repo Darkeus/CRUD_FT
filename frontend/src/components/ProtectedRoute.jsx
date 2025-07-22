@@ -5,13 +5,13 @@ import { ACCESS_TOKEN,REFRESH_TOKEN } from '../constants';
 import React,{useState,useEffect} from 'react';
 
 function ProtectedRoute({children}) {
-    const [isAuthorized, setIsAuthorized] = useState(false);
-
-    const refreshAccessToken = async () => {
-        const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-        useEffect(() => {
+    const [isAuthorized, setIsAuthorized] = useState(null);
+    useEffect(() => {
             auth().catch(()=>isAuthorized(false));
         }, []);
+    const refreshAccessToken = async () => {
+        const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+        
         try{
             const response = await api.post('/token/refresh/', {
                 refresh: refreshToken
