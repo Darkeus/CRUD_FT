@@ -1,0 +1,32 @@
+.campain-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+}
+
+.campain-container h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.campain-container p {
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.campain-container strong {
+    font-weight: bold;
+    color: #333;
+}
+.delete-icon {
+    cursor: pointer;
+    color: #dc3545; 
+    float: right; 
+}
+
+.delete-icon:hover {
+    color: #c82333; 
+}
