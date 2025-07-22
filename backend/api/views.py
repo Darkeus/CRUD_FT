@@ -5,7 +5,18 @@ from .serializers import UserSerializer, CampainSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Campain
 from rest_framework.exceptions import ValidationError
+from rest_framework import viewsets
 
+class CampainViewSet(viewsets.ModelViewSet):
+    serializer_class = CampainSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Campain.objects.filter(author=user)
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 class CampainListCreate(generics.ListCreateAPIView):
     serializer_class = CampainSerializer

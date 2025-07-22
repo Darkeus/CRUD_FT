@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../styles/CampainForm.css';
 import api from '../api';
 
-function CampainForm({ emeraldFunds, subtractFunds, refresh }) {
+function CampainForm({ emeraldFunds, subtractFunds, refresh, data=null, setEditingCampain=null }) {
     const [towns, setTowns] = useState([
         "Warszawa",
         "Kraków",
@@ -15,7 +15,7 @@ function CampainForm({ emeraldFunds, subtractFunds, refresh }) {
         "Lublin",
         "Katowice"
     ]);
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState(data ||{
         name: '',
         keywords: '',
         bidAmount: '',
@@ -90,6 +90,17 @@ function CampainForm({ emeraldFunds, subtractFunds, refresh }) {
         }
 
         try {
+            if(data){
+                api.put(`/api/campains/${data.id}/`, formData)
+                .then(response => {
+                    if (response.status === 200 && setEditingCampain) {
+                        
+                    setEditingCampain(null);
+                    console.log("Editing campaign set to null");
+                    refresh()
+                }
+                    })}
+            else{
             api.post('/api/campains/', formData)
             .then(response => {
                 if (response.status === 201) {
@@ -104,10 +115,12 @@ function CampainForm({ emeraldFunds, subtractFunds, refresh }) {
                     town: '',
                     radius: '',
                 });
+                
+                
                 refresh();
             } else {
                 alert('Failed to create campaign.');
-            }})
+            }})}
         } catch (error) {
             console.error('Error:', error);
             alert('An error occurred.');

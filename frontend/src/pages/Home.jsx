@@ -9,7 +9,7 @@ function Home() {
     const [campains, setCampains] = useState([]);
     const [emeraldFunds, setEmeraldFunds] = useState(1000); //Tymczasowa zmienna do przechowywania funduszy !!!Zmienić!!!
     const [isFormVisible, setIsFormVisible] = useState(false);
-    const formRef = useRef(null);
+    const [editingCampain, setEditingCampain] = useState(null);
 
     useEffect(() => {
         getCampains();
@@ -40,7 +40,7 @@ function Home() {
             <h1>Campaigns</h1>
             <div className="campains-list">
                 {campains.map(campain => (
-                    <Campain key={campain.id} data={campain} setCampains={setCampains} campains={campains} />
+                    campain.id===editingCampain?<CampainForm emeraldFunds={emeraldFunds} subtractFunds={subtractFunds} refresh={getCampains} data={campain} setEditingCampain={setEditingCampain} />: <Campain key={campain.id} data={campain} setCampains={setCampains} campains={campains} setEditingCampain={setEditingCampain}/>
                 ))}
             </div>
 
@@ -59,7 +59,7 @@ function Home() {
             {isFormVisible && (
                 <div className="campain-form-wrapper">
                     <CampainForm
-                        emeraldFunds={1000}
+                        emeraldFunds={emeraldFunds}
                         subtractFunds={subtractFunds}
                         refresh={getCampains}
                     />

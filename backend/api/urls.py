@@ -1,7 +1,10 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'campains', views.CampainViewSet, basename='campains')
 
 urlpatterns = [
-    path('campains/', views.CampainListCreate.as_view(), name='campaign-list-create'),
-    path('campains/<int:pk>/', views.CampainDelete.as_view(), name='campaign-delete'),
-    ]
+    path("", include(router.urls)),
+]
