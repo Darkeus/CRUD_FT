@@ -4,6 +4,11 @@
     height: auto;
 }
 
-.campain-form-wrapper:not(.expanded) {
+/* .campain-form-wrapper:not(.expanded) {
     height: 0;
+} */
+
+#home {
+    padding: 20px;
+    background-color: var(--background-color);
 }

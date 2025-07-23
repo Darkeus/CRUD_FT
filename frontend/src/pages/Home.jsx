@@ -4,10 +4,11 @@ import Campain from '../components/Campain';
 import CampainForm from '../components/CampainForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import '../styles/Home.css';
 
-function Home() {
+function Home({ emeraldFunds }) {
     const [campains, setCampains] = useState([]);
-    const [emeraldFunds, setEmeraldFunds] = useState(1000); //Tymczasowa zmienna do przechowywania funduszy !!!Zmienić!!!
+    // const [emeraldFunds, setEmeraldFunds] = useState(1000); //Tymczasowa zmienna do przechowywania funduszy 
     const [isFormVisible, setIsFormVisible] = useState(false);
     const [editingCampain, setEditingCampain] = useState(null);
 
@@ -36,7 +37,7 @@ function Home() {
     };
 
     return (
-        <div>
+        <div id='home'>
             <h1>Campaigns</h1>
             <div className="campains-list">
                 {campains.map(campain => (

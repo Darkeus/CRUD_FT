@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/CampainForm.css';
 import api from '../api';
+import { useAlert } from './AlertContext';
 
-function CampainForm({ emeraldFunds, subtractFunds, refresh, data=null, setEditingCampain=null }) {
+function CampainForm({ emeraldFunds, refresh, data=null, setEditingCampain=null }) {
+    const { showAlert } = useAlert();
     const [towns, setTowns] = useState([
         "Warszawa",
         "Kraków",
@@ -85,7 +87,7 @@ function CampainForm({ emeraldFunds, subtractFunds, refresh, data=null, setEditi
         e.preventDefault();
 
         if (parseFloat(formData.founds) > emeraldFunds) {
-            alert('Insufficient funds!');
+            showAlert('error','Insufficient funds!');
             return;
         }
 
@@ -105,7 +107,7 @@ function CampainForm({ emeraldFunds, subtractFunds, refresh, data=null, setEditi
             .then(response => {
                 if (response.status === 201) {
                 subtractFunds(parseFloat(formData.founds));  
-                alert('Campaign created successfully!');
+                showAlert('info','Campaign created successfully!');
                 setFormData({
                     name: '',
                     keywords: '',
@@ -119,11 +121,22 @@ function CampainForm({ emeraldFunds, subtractFunds, refresh, data=null, setEditi
                 
                 refresh();
             } else {
-                alert('Failed to create campaign.');
+                showAlert('error','Failed to create campaign.');
             }})}
         } catch (error) {
             console.error('Error:', error);
-            alert('An error occurred.');
+            showAlert('error','An error occurred.');
+        }
+    };
+
+    const subtractFunds = async (amount) => {
+        try {
+            const response = await api.post('/api/subtract-funds/', { amount });
+            refresh(); 
+            showAlert('info', `Funds subtracted successfully! New balance: $${response.data.emeraldFunds}`);
+        } catch (error) {
+            console.error('Error subtracting funds:', error);
+            showAlert('error', 'Failed to subtract funds.');
         }
     };
 

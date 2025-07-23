@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import api from '../api';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants';
 import '../styles/Form.css';
+import { useAlert } from './AlertContext';
 
 function Form({route,method}){
+    const { showAlert } = useAlert();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [Loading, setLoading] = useState(false);
@@ -29,7 +31,7 @@ function Form({route,method}){
             
         } catch (error) {
             console.error("Error during form submission:", error);
-            alert('An error occurred. Please try again.');
+            showAlert('error','An error occurred. Please try again.');
         } finally {
             setLoading(false);
         }
