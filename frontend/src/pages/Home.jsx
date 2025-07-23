@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Home.css';
 
-function Home({ emeraldFunds }) {
+function Home({ emeraldFunds, fechData }) {
     const [campains, setCampains] = useState([]);
     // const [emeraldFunds, setEmeraldFunds] = useState(1000); //Tymczasowa zmienna do przechowywania funduszy 
     const [isFormVisible, setIsFormVisible] = useState(false);
@@ -31,17 +31,17 @@ function Home({ emeraldFunds }) {
         setIsFormVisible(!isFormVisible);
     };
 
-    const subtractFunds = (amount) => {
-        setEmeraldFunds(prevFunds => prevFunds - amount);
-        console.log(`Subtracting ${amount}`);
-    };
+    const refresh=()=>{
+        getCampains();
+        fechData(); 
+    }
 
     return (
         <div id='home'>
             <h1>Campaigns</h1>
             <div className="campains-list">
                 {campains.map(campain => (
-                    campain.id===editingCampain?<CampainForm emeraldFunds={emeraldFunds} subtractFunds={subtractFunds} refresh={getCampains} data={campain} setEditingCampain={setEditingCampain} />: <Campain key={campain.id} data={campain} setCampains={setCampains} campains={campains} setEditingCampain={setEditingCampain}/>
+                    campain.id===editingCampain?<CampainForm emeraldFunds={emeraldFunds} subtractFunds={subtractFunds} refresh={refresh} data={campain} setEditingCampain={setEditingCampain} />: <Campain key={campain.id} data={campain} setCampains={setCampains} campains={campains} setEditingCampain={setEditingCampain}/>
                 ))}
             </div>
 

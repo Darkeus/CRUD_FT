@@ -39,7 +39,7 @@ function CampainForm({ emeraldFunds, refresh, data=null, setEditingCampain=null 
         "technologia",
         "zdrowie"
     ]); 
-
+    //Powinno być używane zamiast stałej listy, ale nie implementowałem tego w backendzie, więc jest jak jest
     // useEffect(() => {
         
     //     const fetchTowns = async () => {
@@ -201,6 +201,7 @@ function CampainForm({ emeraldFunds, refresh, data=null, setEditingCampain=null 
                     min="0.01"
                     step="0.01"
                     required
+                    {...data ? { readOnly: true } : {}} //Nie wiedziałem co zrobić przy zmianie funduszy więc wyłączyłem możliwość edycji funduszy przy edycji kampanii
                 />
                 <p>Emerald Funds: {emeraldFunds}</p>
             </div>

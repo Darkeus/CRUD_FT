@@ -13,6 +13,7 @@ from rest_framework.decorators import permission_classes
 from rest_framework import status
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from decimal import Decimal  # Importuj Decimal
 
 class CampainViewSet(viewsets.ModelViewSet):
     serializer_class = CampainSerializer
@@ -91,21 +92,19 @@ def add_funds(request):
 def subtract_funds(request):
     user = request.user
     try:
-        # Upewnij się, że użytkownik ma profil
         if not hasattr(user, 'profile'):
-            user.profile = Profile.objects.create(user=user, emerald_funds=0)
+            user.profile = Profile.objects.create(user=user, emerald_funds=Decimal('0'))
 
-        # Pobierz wartość do odjęcia z żądania
         amount = request.data.get('amount')
         if amount is None:
             return Response({"error": "Amount is required"}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            amount = float(amount)
-        except ValueError:
+            amount = Decimal(amount)  
+        except (ValueError, TypeError):
             return Response({"error": "Invalid amount"}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Sprawdź, czy użytkownik ma wystarczające środki
+       
         if user.profile.emerald_funds >= amount:
             user.profile.emerald_funds -= amount
             user.profile.save()

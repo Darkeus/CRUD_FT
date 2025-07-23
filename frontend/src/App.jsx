@@ -41,7 +41,7 @@ function App() {
       <Alert />
         <Routes>
           <Route path="/" element={<ProtectedRoute />}>
-            <Route index element={<><Header  username={userData.username} emeraldFunds={userData.emeraldFunds} fechData={fetchUserData}/><Home emeraldFunds={userData.emeraldFunds} /></>} />
+            <Route index element={<><Header  username={userData.username} emeraldFunds={userData.emeraldFunds} fechData={fetchUserData}/><Home emeraldFunds={userData.emeraldFunds} fechData={fetchUserData}/></>} />
             <Route path="logout" element={<Logout />} />
           </Route>
           <Route path="/login" element={<Login />} />
